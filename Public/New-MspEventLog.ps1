@@ -15,7 +15,7 @@
 <# 
 
 .DESCRIPTION 
- MspModule-EventLog Get-Functions
+ MspModule-EventLog New-Functions (Create)
 
 #> 
 
