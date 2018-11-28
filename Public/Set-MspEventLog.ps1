@@ -19,3 +19,6 @@
 
 #> 
 
+function Set-MspEventLog {
+    write-host "Set-MspEventLog wurde aufgerufen"
+}

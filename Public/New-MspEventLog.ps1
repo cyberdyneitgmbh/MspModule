@@ -19,3 +19,6 @@
 
 #> 
 
+function New-MspEventLog {
+    write-host "New-MspEventLog wurde aufgerufen"
+}
