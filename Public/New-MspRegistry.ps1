@@ -19,3 +19,6 @@
 
 #> 
 
+function New-MspRegistry {
+    write-host "New-MspRegistry wurde aufgerufen"
+}

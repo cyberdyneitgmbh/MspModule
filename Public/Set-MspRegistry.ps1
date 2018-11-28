@@ -19,3 +19,6 @@
 
 #> 
 
+function Set-MspRegistry {
+    write-host "Set-MspRegistry wurde aufgerufen"
+}
