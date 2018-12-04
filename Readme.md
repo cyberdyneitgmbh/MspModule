@@ -29,6 +29,8 @@ Informationen zur Versionierung
 ## Authors
 
 * **Jan Durry**
+* **Kai Osthoff**
+
 
 See also the list of [contributors](https://github.com/cyberdyneitgmbh/MSP_Module/contributors) who participated in this project.
 
