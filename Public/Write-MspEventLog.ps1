@@ -27,19 +27,19 @@ function Write-MspEventLog {
         [string]$Logname
     )            
     begin {
-        if (!([ValidateNotNullOrEmpty()]$Logname)) {
+        if (!($Logname)) {
             $Logname = "MspEvent"
         }
-        if (!([ValidateNotNullOrEmpty()]$Description)) {
+        if (!($Description)) {
             $Description = "Es wurde ein Event durch das Msp-Modul ausgelöst"
         }
-        if (!([ValidateNotNullOrEmpty()]$EntryType)) {
+        if (!($EntryType)) {
             $EntryType = "Information"
         }
-        if (!([ValidateNotNullOrEmpty()]$Message)) {
+        if (!($Message)) {
             $Message = "Es wurde ein Event durch das Msp-Modul ausgelöst"
         }
-        if (!([ValidateNotNullOrEmpty()]$MessageResourceFile)) {
+        if (!($MessageResourceFile)) {
             $MessageResourceFile = "C:\Program Files\WindowsPowerShell\Modules\MspModule\Public\Write-MspEventLog.ps1"
         }
         Write-Verbose "+ Prüfe, ob EventLog MspEvent existiert"
