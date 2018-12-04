@@ -14,22 +14,23 @@ function Write-MspEventLog {
         [parameter(Mandatory = $True, Position = 1)]
         [int32]$EventID,
 
+        [parameter(Mandatory = $false, Position = 3)]
+        [ValidateSet("Error","FailureAudit","SuccessAudit","Warning","Information")]
+        [AllowEmptyString()]
+        [AllowNull()] 
+        [string]$EntryType,
+
         [parameter(Mandatory = $false)]
         [string]$Description,
 
         [parameter(Mandatory = $false)]
-        [string]$EntryType,
+        [string]$ResourceFile
 
-        [parameter(Mandatory = $false)]
-        [string]$ResourceFile,
-
-        [parameter(Mandatory = $false)]
-        [string]$Logname
-    )            
+    )   
     begin {
-        if (!($Logname)) {
-            $Logname = "MspEvent"
-        }
+        $LastErrorActionPreference = $ErrorActionPreference
+        $ErrorActionPreference = "stop"
+        $Logname = "MspEvent" 
         if (!($Description)) {
             $Description = "Es wurde ein Event durch das Msp-Modul ausgelöst"
         }
@@ -42,52 +43,21 @@ function Write-MspEventLog {
         if (!($MessageResourceFile)) {
             $MessageResourceFile = "C:\Program Files\WindowsPowerShell\Modules\MspModule\Public\Write-MspEventLog.ps1"
         }
-        Write-Verbose "+ Prüfe, ob EventLog MspEvent existiert"
-        if ([System.Diagnostics.EventLog]::Exists('MspEvent')) {
-            Write-Verbose "+ MspEvent vorhanden"
-            Write-Verbose "+ Prüfe, ob Quelle $Source in MspEvent vorhanden"
-            if (!([System.Diagnostics.EventLog]::SourceExists($Source))) {
-                try {
-                    Write-Verbose "+ Erstelle neue Quelle $Source in MspEvent"
-                    New-EventLog -Source $Source -LogName $Logname
-                }
-                catch {
-                    Write-Verbose "+ Es ist ein Fehler bei der Erstellung eines MspEventLog-Eintrages aufgetreten"
-                    Write-Verbose $_.Exception.Message
-                    Write-Error "+ Fehler: "
-                    Write-Error $_.Exception.Message
-                }
-            }
-            else {
-                Write-Verbose "+ Quelle $Source in MspEvent vorhanden"
-            }
-        }
-        else {
-            Write-Verbose "+ MspEvent existiert nicht und wird mit der Quelle $Source neu erstellt."
-            try {
-                New-EventLog -Source $Source -LogName $Logname
-            }
-            catch {
-                Write-Verbose "+ Es ist ein Fehler bei der Erstellung eines MspEventLog-Eintrages aufgetreten"
-                Write-Verbose $_.Exception.Message
-                Write-Error "+ Fehler: "
-                Write-Error $_.Exception.Message
-            }
-        }
+        Write-Verbose "+ Prüfe, ob EventLog $Logname mit Quelle $Source existiert"
+        New-MspEventLog -Source $Source
     }            
     process {
         Write-Verbose "+ Schreibe neuen MspEventLog Eintrag"
         try {
-            Write-EventLog -Source $Source -LogName $Logname -Message $Description -EventId 0 -EntryType $EntryType
+            Write-EventLog -LogName $Logname -Source $Source -Message $Description -EventId $EventID -EntryType $EntryType
+            Write-Verbose "+ Es wurde ein neuer Eventlog Eintrag in $Logname mit Quelle $Source und ID $EventID erstellt"
         }
         catch {
-            Write-Verbose "+ Es ist ein Fehler bei der Erstellung eines MspEventLog-Eintrages aufgetreten"
-            Write-Verbose $_.Exception.Message
-            Write-Error "+ Fehler: "
-            Write-Error $_.Exception.Message
+            Write-Error "- Es ist ein Fehler bei der Erstellung eines MspEventLog-Eintrages aufgetreten"
         }
     }            
     end {
-        Write-Verbose "+ Es wurde erfolgreich in das MspEventLog geschrieben"
+        $ErrorActionPreference = $LastErrorActionPreference
+        Write-Verbose "+ Beende Funktion Write-MspEventLog"
     }
 }
