@@ -48,7 +48,7 @@ function Write-MspEventLog {
             $MessageResourceFile = "C:\Program Files\WindowsPowerShell\Modules\MspModule\Public\Write-MspEventLog.ps1"
         }
         Write-Verbose "+ Prüfe, ob EventLog $Logname mit Quelle $Source existiert"
-        New-MspEventLog -Source $Source
+        New-MspEventLog -Logname $Logname -Source $Source
     }            
     process {
         Write-Verbose "+ Schreibe neuen MspEventLog Eintrag"
