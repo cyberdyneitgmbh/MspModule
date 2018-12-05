@@ -32,6 +32,7 @@ function Write-MspEventLog {
         $ErrorActionPreference = "stop"
         if (!($env:mspEventLog)) {
             $Logname = "MspEventTest"
+            write-host "+++ ES IST KEINE ACCOUNT VARIABLE IN RMM GESETZT - EVENTLOG WIRD ALS 'MspEventTest' ANGELEGT! +++"
         } else {
             $Logname = $env:mspEventLog
         }
