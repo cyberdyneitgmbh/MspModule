@@ -11,14 +11,13 @@ function New-MspEventLog {
         [parameter(Mandatory = $True, Position = 0)]
         [string]$Source,
 
-        [parameter(Mandatory = $false)]
-        [string]$ComputerName
+        [parameter(Mandatory = $True, Position = 1)]
+        [string]$Logname
     )
 
     begin {
         $LastErrorActionPreference = $ErrorActionPreference
         $ErrorActionPreference = "stop"
-        $Logname = "MspEvent"
     }
 
     process {
