@@ -30,7 +30,11 @@ function Write-MspEventLog {
     begin {
         $LastErrorActionPreference = $ErrorActionPreference
         $ErrorActionPreference = "stop"
-        $Logname = "MspEvent" 
+        if (!($env:mspEventLog)) {
+            $Logname = "MspEventTest"
+        } else {
+            $Logname = $env:mspEventLog
+        }
         if (!($Description)) {
             $Description = "Es wurde ein Event durch das Msp-Modul ausgelöst"
         }
