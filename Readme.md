@@ -16,7 +16,7 @@ Gibt es die Möglichkeiten das Modul zu testen?
 
 ## Deployment
 
-Wie wird das Modul auf den Geräten zur Verfügung gestellt? 
+Wie wird das Modul auf den Geräten zur Verfügung gestellt? Deployment-Job der Initial im RMM eingerichtet werden muss. Falls nicht werfen die entsprechenden Skripts die sich diesem bedienen einfach einen Fehler, dass das Deployment fehlt.
 
 ## Built With
 
