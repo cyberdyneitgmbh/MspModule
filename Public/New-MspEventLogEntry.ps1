@@ -57,9 +57,9 @@ function New-MspEventLogEntry {
             }
         } else {
             if (!$PSBoundParameters.ContainsKey('Verbose')) {
-                New-MspEventLog $Logname $Source -Verbose
+                New-MspEventLog $Logname $Source -Verbose | Out-Null
             } else {
-                New-MspEventLog $Logname $Source
+                New-MspEventLog $Logname $Source | Out-Null
             }
         }
     }            
