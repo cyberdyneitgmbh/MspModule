@@ -107,5 +107,3 @@ https://github.com/cyberdyneitgmbh/MspModule
 #>"
 
 }
-
-Get-MspHelp About_Msp_EventLog
