@@ -46,21 +46,21 @@ function New-MspEventLogEntry {
         Write-Verbose "Erstelle Eventlog-Eintrag"
         if ([System.Diagnostics.EventLog]::Exists($Logname)) {
             write-Verbose "$Logname existiert"
-            try {
-                Write-EventLog -LogName $Logname -Source $Source -EventId $ID -Message $Message -EntryType $Type -ErrorAction "stop"
-                Write-Verbose "Eventlog-Eintrag wurde erstellt"
-            }
-            catch {
-                Write-Verbose "ERROR: Es ist ein Fehler bei der Erstellung eines MspEventLog-Eintrages aufgetreten"
-                Write-Verbose "ERROR: $($_.Exception.Message)"
-                $Errorstate = $true
-            }
         } else {
             if (!$PSBoundParameters.ContainsKey('Verbose')) {
                 New-MspEventLog $Logname $Source -Verbose | Out-Null
             } else {
                 New-MspEventLog $Logname $Source | Out-Null
             }
+        }
+        try {
+            Write-EventLog -LogName $Logname -Source $Source -EventId $ID -Message $Message -EntryType $Type -ErrorAction "stop"
+            Write-Verbose "Eventlog-Eintrag wurde erstellt"
+        }
+        catch {
+            Write-Verbose "ERROR: Es ist ein Fehler bei der Erstellung eines MspEventLog-Eintrages aufgetreten"
+            Write-Verbose "ERROR: $($_.Exception.Message)"
+            $Errorstate = $true
         }
     }            
     end {
@@ -72,5 +72,3 @@ function New-MspEventLogEntry {
         return "Eventlog-Eintrag wurde erstellt."
     }
 }
-
-New-MspEventLogEntry -ID 1 -Message "Test" -Verbose
