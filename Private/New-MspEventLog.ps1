@@ -64,6 +64,8 @@ function New-MspEventLog {
             try {
                 New-EventLog -LogName $Logname -Source $Source -ErrorAction "stop"
                 Write-Verbose "Eventlog $Logname wurde erstellt"
+                Limit-EventLog -LogName $Logname -MaximumSize 200MB
+                Write-Verbose "Eventlog $Logname wurde auf 200MB vergrößert"
             }
             catch {
                 Write-Verbose "ERROR: Es ist ein Fehler bei der Erstellung eines MspEventLog-Eintrages aufgetreten"
