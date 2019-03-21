@@ -1,7 +1,7 @@
 ﻿<# 
 
 .DESCRIPTION 
-    Accesstoken for RMM-Api connection (pinotage)
+    RMM Api Request Method
 
 #>
 function New-RmmApiRequest {
@@ -80,6 +80,6 @@ function New-RmmApiRequest {
         if ($Errorstate) {
             return $null
         }
-        return $Request
+        return $Request | ConvertFrom-Json
     }
 }
