@@ -43,7 +43,7 @@ function New-MspEventLogEntry {
         }
     }            
     process {
-        Write-Verbose "Erstelle Eventlog-Eintrag"
+        Write-Verbose "Erstelle Eventlog-Eintrag.."
         if ([System.Diagnostics.EventLog]::Exists($Logname)) {
             write-Verbose "$Logname existiert"
         } else {
@@ -56,6 +56,7 @@ function New-MspEventLogEntry {
         try {
             Write-EventLog -LogName $Logname -Source $Source -EventId $ID -Message $Message -EntryType $Type -ErrorAction "stop"
             Write-Verbose "Eventlog-Eintrag wurde erstellt"
+            $Entry = Get-WinEvent -FilterHashtable @{Logname = $Logname} -MaxEvents 1
         }
         catch {
             Write-Verbose "ERROR: Es ist ein Fehler bei der Erstellung eines MspEventLog-Eintrages aufgetreten"
@@ -67,8 +68,8 @@ function New-MspEventLogEntry {
         $ErrorActionPreference = $LastErrorActionPreference
         Write-Verbose "Abgeschlossen"
         if ($Errorstate) {
-            return "Beim Erstellen des Eventlog-Eintrages ist ein Fehler aufgetreten. Nutzen Sie den Parameter '-Verbose' für mehr Informationen"
+            Write-Error "Beim Erstellen des Eventlog-Eintrages ist ein Fehler aufgetreten. Nutzen Sie den Parameter '-Verbose' für mehr Informationen"
         }
-        return "Eventlog-Eintrag wurde erstellt."
+        return $Entry
     }
 }
