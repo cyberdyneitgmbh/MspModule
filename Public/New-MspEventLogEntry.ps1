@@ -74,5 +74,3 @@ function New-MspEventLogEntry {
         return $Entry
     }
 }
-
-New-MspEventLogEntry -id 99 -Message "JD" -Source "RMM-Allgemein" -Verbose
