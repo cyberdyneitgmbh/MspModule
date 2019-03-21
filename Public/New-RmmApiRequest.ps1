@@ -1,7 +1,7 @@
 ﻿<# 
 
 .DESCRIPTION 
-    Accesstoken for RMM-Api connection (pinotage)
+    RMM Api Request Method
 
 #>
 function New-RmmApiRequest {
