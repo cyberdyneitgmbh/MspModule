@@ -5,12 +5,14 @@
 
 #>
 
-function New-AemApiAccessToken {
+function New-RmmApiAccessToken {
     [CmdletBinding()]
     param (
         [string]$apiUrl,
         [string]$apiKey,
-        [string]$apiSecretKey
+        [string]$apiSecretKey,
+        [string]$apiMethod,
+        [string]$apiRequestBody
     )   
     begin {
         # Erroraction preference
@@ -59,3 +61,18 @@ function New-AemApiAccessToken {
         return $AccessToken
     }
 }
+
+$RMMApiKey = "QBR97CVCTGSVH66CB64C0R3P3K3HFP82"
+$RMMApiSecretKey = "M5V8E3S059EPGSPAF03AAKE92A1EKSLS"
+$RMMApiUrl = "https://pinotage-api.centrastage.net"
+
+
+$params = @{
+    apiUrl         =	$RMMApiUrl
+    apiKey         =	$RMMApiKey
+    apiSecretKey   =	$RMMApiSecretKey
+    apiMethod      =	'GET'
+    apiRequestBody	=	$null
+}
+$AccessToken = New-RmmApiAccessToken @params -Verbose
+$AccessToken
