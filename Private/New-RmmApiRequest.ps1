@@ -4,13 +4,13 @@
     Accesstoken for RMM-Api connection (pinotage)
 
 #>
-function New-AemApiRequest {
+function New-RmmApiRequest {
     param 
     (
         [string]$apiUrl,
-        [string]$apiAccessToken,
+        [string]$apiKey,
+        [string]$apiSecretKey,
         [string]$apiMethod,
-        [string]$apiRequest,
         [string]$apiRequestBody
     )
     begin {
@@ -26,6 +26,27 @@ function New-AemApiRequest {
         if ($PSBoundParameters.ContainsKey('Verbose')) {
             $VerbosePreference = $PSCmdlet.GetVariableValue('VerbosePreference')
         }
+
+        # Access token params
+        $accesstokenparams = @{
+            apiUrl         =	$apiUrl
+            apiKey         =	$apiKey
+            apiSecretKey   =	$apiSecretKey
+            apiMethod      =	'GET'
+            apiRequestBody	=	$null
+        }
+        
+        # Getting AccessToken
+        write-Verbose "Getting Access token"
+        try {
+            $apiAccessToken = New-RmmApiAccessToken @accesstokenparams
+        }
+        catch {
+            write-Verbose "Error during getting access token"
+            write-Error $_.Exception.Message
+            $Errorstate = $true
+        }
+        
 
         # Define parameters for Invoke-WebRequest cmdlet
         $params = @{
