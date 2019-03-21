@@ -80,6 +80,6 @@ function New-RmmApiRequest {
         if ($Errorstate) {
             return $null
         }
-        return $Request
+        return $Request | ConvertFrom-Json
     }
 }
