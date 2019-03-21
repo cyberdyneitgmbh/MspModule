@@ -68,8 +68,11 @@ function New-MspEventLogEntry {
         $ErrorActionPreference = $LastErrorActionPreference
         Write-Verbose "Abgeschlossen"
         if ($Errorstate) {
-            Write-Error "Beim Erstellen des Eventlog-Eintrages ist ein Fehler aufgetreten. Nutzen Sie den Parameter '-Verbose' für mehr Informationen"
+            Write-Error "Beim Erstellen des Eventlog-Eintrages ist ein Fehler aufgetreten. Nutzen Sie den Parameter '-Verbose' fuer mehr Informationen"
+            return $null
         }
         return $Entry
     }
 }
+
+New-MspEventLogEntry -id 99 -Message "JD" -Source "RMM-Allgemein" -Verbose

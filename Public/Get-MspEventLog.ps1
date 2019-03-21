@@ -97,6 +97,7 @@ function Get-MspEventLog {
         Write-Verbose "Vorgang abgeschlossen"
         if ($Errorstate) {
             Write-Error "Beim Abrufen des Eventlogs ist ein Fehler aufgetreten. Nutzen Sie den Parameter '-Verbose' für mehr Informationen"
+            return $null
         }
         return $EventLog
     }
