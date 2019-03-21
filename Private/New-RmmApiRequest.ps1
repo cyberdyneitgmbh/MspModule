@@ -11,6 +11,7 @@ function New-RmmApiRequest {
         [string]$apiKey,
         [string]$apiSecretKey,
         [string]$apiMethod,
+        [string]$apiRequest,
         [string]$apiRequestBody
     )
     begin {
@@ -32,8 +33,6 @@ function New-RmmApiRequest {
             apiUrl         =	$apiUrl
             apiKey         =	$apiKey
             apiSecretKey   =	$apiSecretKey
-            apiMethod      =	'GET'
-            apiRequestBody	=	$null
         }
         
         # Getting AccessToken
